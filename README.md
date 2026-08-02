@@ -7,7 +7,6 @@ A static birthday website made for GitHub Pages. It uses plain HTML, CSS, JavaSc
 - `index.html` - page content and structure
 - `styles.css` - responsive visual styling
 - `script.js` - background music controls, wishes, message popups, reveal effects, and confetti
-- `robots.txt` - asks search engines not to crawl the site
 - `assets/birthday-background-elegant.png` - active generated hero background
 - `assets/birthday-background-twilight.png` - alternate generated twilight background
 - `assets/birthday-hero.png` - alternate generated soft background image
@@ -30,10 +29,9 @@ GitHub will publish the site at a link like:
 https://your-username.github.io/your-repo-name/
 ```
 
-## Privacy Notes
+## Notes
 
-- `robots.txt` and the page meta tag ask search engines not to index the site.
-- GitHub Pages links are still public to anyone who has the URL.
+- GitHub Pages links are public to anyone who has the URL.
 - The site uses only local files; no Google Fonts or third-party media are loaded.
 - The background music uses `assets/Cutie Patootie.mp3`. The page attempts to play it automatically with sound when opened, but some browsers may require the first tap/click before allowing sound.
 
