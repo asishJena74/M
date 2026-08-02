@@ -15,41 +15,63 @@
       content="A small birthday page for someone who makes the world feel brighter."
     />
     <meta property="og:image" content="assets/birthday-background-twilight.png" />
+    <script>
+      window.tailwind = window.tailwind || {};
+      window.tailwind.config = {
+        important: true,
+        theme: {
+          extend: {
+            colors: {
+              paper: "#fffaf4",
+              ink: "#291f1b",
+              muted: "#6e6259",
+              coral: "#c65d49",
+              sage: "#687c62"
+            },
+            fontFamily: {
+              display: ['"Palatino Linotype"', "Palatino", "Georgia", "serif"],
+              body: ['"Segoe UI"', "system-ui", "sans-serif"]
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="min-h-screen overflow-x-hidden bg-paper font-body text-ink">
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
     <audio id="bgMusic" src="assets/Cutie%20Patootie.mp3" preload="auto" autoplay loop playsinline></audio>
 
-    <header class="hero">
+    <header class="hero relative isolate grid min-h-[92vh] items-center overflow-hidden px-4 pb-16 pt-24 sm:px-5 md:px-6">
       <div class="hero__media" role="img" aria-label="Flowers, candles, and a blank letter in warm birthday light"></div>
-      <nav class="topbar" aria-label="Birthday page sections">
-        <a href="#gallery">Photos</a>
-        <a href="#admire">Admire</a>
-        <a href="#letter">Letter</a>
-        <a href="#wishes">Wishes</a>
+      <nav class="topbar flex w-[calc(100%-1rem)] max-w-md justify-between gap-1 rounded-full border border-white/70 bg-paper/75 p-1 shadow-lg backdrop-blur-md" aria-label="Birthday page sections">
+        <a class="flex-1 rounded-full px-2 py-2 text-center text-xs font-extrabold text-muted transition hover:bg-paper hover:text-[#954332] sm:text-sm" href="#gallery">Photos</a>
+        <a class="flex-1 rounded-full px-2 py-2 text-center text-xs font-extrabold text-muted transition hover:bg-paper hover:text-[#954332] sm:text-sm" href="#admire">Admire</a>
+        <a class="flex-1 rounded-full px-2 py-2 text-center text-xs font-extrabold text-muted transition hover:bg-paper hover:text-[#954332] sm:text-sm" href="#letter">Letter</a>
+        <a class="flex-1 rounded-full px-2 py-2 text-center text-xs font-extrabold text-muted transition hover:bg-paper hover:text-[#954332] sm:text-sm" href="#wishes">Wishes</a>
       </nav>
-      <div class="hero__layout">
-        <div class="hero__content">
-          <p class="eyebrow">A little birthday page for someone very special</p>
-          <h1>
-            <span>Happy Birthday,</span>
-            <strong>Madhushree</strong>
+      <div class="hero__layout mx-auto grid w-full max-w-6xl items-center gap-6 md:grid-cols-[minmax(0,1.25fr)_minmax(250px,320px)] lg:gap-12">
+        <div class="hero__content min-w-0 max-w-[760px]">
+          <p class="eyebrow mb-3 text-[0.68rem] font-black uppercase tracking-[0.12em] text-[#954332] sm:text-xs">A little birthday page for someone very special</p>
+          <h1 class="max-w-full font-display leading-[0.98] tracking-normal text-ink">
+            <span class="block text-[clamp(2.25rem,10vw,4.5rem)] font-bold md:text-[clamp(3rem,6.4vw,4.8rem)]">Happy Birthday,</span>
+            <strong class="block whitespace-nowrap text-[clamp(2.55rem,11.8vw,4.15rem)] font-bold md:text-[clamp(3.6rem,7.2vw,6.5rem)]">Madhushree💕</strong>
           </h1>
-          <p class="tagline">
+          <p class="tagline mt-4 max-w-2xl text-[0.98rem] leading-relaxed text-[#44342c] sm:text-lg">
             I made this because some people deserve something more thoughtful than a simple message.
             You are one of those people.
           </p>
-          <div class="hero__actions">
-            <a class="button button--primary" href="#letter">Read my note</a>
-            <button class="button button--soft" id="surpriseBtn" type="button">
+          <div class="hero__actions mt-5 grid w-full max-w-[360px] grid-cols-2 gap-2 sm:flex sm:max-w-md sm:flex-wrap sm:gap-3">
+            <a class="button button--primary min-h-11 w-full px-2.5 py-3 text-center text-[0.78rem] leading-tight sm:w-auto sm:px-4 sm:text-base" href="#letter">Read my note</a>
+            <button class="button button--soft min-h-11 w-full px-2.5 py-3 text-center text-[0.78rem] leading-tight sm:w-auto sm:px-4 sm:text-base" id="surpriseBtn" type="button">
               One tiny surprise
             </button>
           </div>
         </div>
-        <figure class="hero__portrait">
-          <img src="assets/IMG-20260617-WA0015.jpg" alt="Madhushree smiling outdoors" />
-          <figcaption>Someone who makes simple moments look beautiful.</figcaption>
+        <figure class="hero__portrait w-[min(78vw,300px)] justify-self-start overflow-hidden rounded-lg border border-white/80 bg-paper/75 shadow-2xl backdrop-blur-md md:w-full md:justify-self-end">
+          <img class="aspect-[4/5] w-full object-cover object-[50%_22%]" src="assets/IMG-20260617-WA0015.jpg" alt="Madhushree smiling outdoors" />
+          <figcaption class="p-3 text-sm font-bold leading-snug text-muted">Someone who makes simple moments look beautiful.</figcaption>
         </figure>
       </div>
       <div class="scroll-cue" aria-hidden="true">

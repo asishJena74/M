@@ -1,11 +1,11 @@
 # Birthday Website for Madhushree
 
-A static birthday website made for GitHub Pages. It uses plain HTML, CSS, JavaScript, and local assets, so there is no build step.
+A static birthday website made for GitHub Pages. It uses HTML, Tailwind CDN utilities, a small custom CSS file, JavaScript, and local assets, so there is no build step.
 
 ## Files
 
 - `index.html` - page content and structure
-- `styles.css` - responsive visual styling
+- `styles.css` - custom visual styling for backgrounds, dialogs, animations, and effects
 - `script.js` - background music controls, wishes, message popups, reveal effects, and confetti
 - `assets/birthday-background-twilight.png` - active generated hero background
 - `assets/birthday-background-elegant.png` - alternate generated elegant background
@@ -32,7 +32,8 @@ https://your-username.github.io/your-repo-name/
 ## Notes
 
 - GitHub Pages links are public to anyone who has the URL.
-- The site uses only local files; no Google Fonts or third-party media are loaded.
+- Tailwind is loaded from the CDN in `index.html` so GitHub Pages can deploy without a build step.
+- The site uses local photos, local music, and no Google Fonts.
 - The background music uses `assets/Cutie Patootie.mp3`. The page attempts to play it automatically with sound when opened, but some browsers may require the first tap/click before allowing sound.
 
 ## Personalize
