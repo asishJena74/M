@@ -74,9 +74,9 @@ a {
   inset: 0;
   z-index: -2;
   background:
-    linear-gradient(90deg, rgba(255, 250, 244, 0.58) 0%, rgba(255, 250, 244, 0.38) 48%, rgba(255, 250, 244, 0.08) 100%),
-    linear-gradient(180deg, rgba(255, 250, 244, 0.06), rgba(255, 250, 244, 0.2)),
-    url("assets/birthday-background-elegant.png") center / cover no-repeat;
+    linear-gradient(90deg, rgba(255, 250, 244, 0.9) 0%, rgba(255, 250, 244, 0.68) 48%, rgba(255, 250, 244, 0.12) 100%),
+    linear-gradient(180deg, rgba(20, 22, 17, 0.12), rgba(20, 22, 17, 0.2)),
+    url("assets/birthday-background-twilight.png") center / cover no-repeat;
   transform: scale(1.01);
 }
 
@@ -124,6 +124,7 @@ a {
 
 .hero__content {
   width: min(760px, 100%);
+  min-width: 0;
 }
 
 .hero__portrait {
@@ -187,8 +188,8 @@ h2 {
 
 h1 {
   max-width: 720px;
-  font-size: clamp(3.8rem, 9.4vw, 7.2rem);
-  line-height: 0.9;
+  font-size: clamp(3.4rem, 8.4vw, 6.8rem);
+  line-height: 0.94;
   letter-spacing: 0;
   text-wrap: balance;
 }
@@ -199,13 +200,16 @@ h1 strong {
 }
 
 h1 span {
-  font-size: 0.68em;
+  font-size: 0.66em;
   font-weight: 700;
 }
 
 h1 strong {
+  display: inline-block;
+  max-width: 100%;
   font-weight: 700;
   white-space: nowrap;
+  font-size: clamp(3.6rem, 9vw, 7rem);
 }
 
 .tagline {
@@ -222,6 +226,7 @@ h1 strong {
   flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 1.8rem;
+  max-width: 440px;
 }
 
 .button {
@@ -234,6 +239,9 @@ h1 strong {
   min-height: 48px;
   padding: 0.86rem 1rem;
   font-weight: 900;
+  max-width: 100%;
+  text-align: center;
+  white-space: nowrap;
   transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
 }
 
@@ -957,8 +965,9 @@ dialog::backdrop {
 
   .hero__media {
     background:
-      linear-gradient(180deg, rgba(255, 250, 244, 0.74) 0%, rgba(255, 250, 244, 0.5) 54%, rgba(255, 250, 244, 0.92) 100%),
-      url("assets/birthday-background-elegant.png") center / cover no-repeat;
+      linear-gradient(180deg, rgba(255, 250, 244, 0.9) 0%, rgba(255, 250, 244, 0.68) 54%, rgba(255, 250, 244, 0.94) 100%),
+      linear-gradient(90deg, rgba(20, 22, 17, 0.08), rgba(20, 22, 17, 0.18)),
+      url("assets/birthday-background-twilight.png") center / cover no-repeat;
   }
 
   .hero__layout {
@@ -974,7 +983,11 @@ dialog::backdrop {
 
   h1 {
     max-width: 620px;
-    font-size: clamp(3.4rem, 12vw, 5.8rem);
+    font-size: clamp(3rem, 10.5vw, 5.2rem);
+  }
+
+  h1 strong {
+    font-size: clamp(3.15rem, 11vw, 5.45rem);
   }
 
   .admire-grid,
@@ -1010,11 +1023,28 @@ dialog::backdrop {
 
   h1 {
     max-width: 100%;
-    font-size: clamp(2.95rem, 15vw, 4.7rem);
+    font-size: clamp(2.35rem, 11vw, 3.65rem);
+    line-height: 0.98;
   }
 
   h1 strong {
-    font-size: clamp(3rem, 16.4vw, 4.9rem);
+    font-size: clamp(2.55rem, 12vw, 3.9rem);
+  }
+
+  .tagline {
+    max-width: 100%;
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-top: 1rem;
+  }
+
+  .hero__actions {
+    width: 100%;
+    max-width: 330px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin-top: 1.25rem;
   }
 
   .section__heading h2,
@@ -1030,6 +1060,10 @@ dialog::backdrop {
 
   .button {
     width: 100%;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0.82rem 0.9rem;
+    font-size: 0.95rem;
   }
 
   .intro {
@@ -1091,5 +1125,28 @@ dialog::backdrop {
 
   .wish-result {
     min-height: auto;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding-inline: 0.85rem;
+  }
+
+  h1 {
+    font-size: 2.22rem;
+  }
+
+  h1 strong {
+    font-size: 2.42rem;
+  }
+
+  .hero__actions {
+    max-width: 100%;
+  }
+
+  .button {
+    white-space: normal;
+    line-height: 1.15;
   }
 }

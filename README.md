@@ -7,8 +7,8 @@ A static birthday website made for GitHub Pages. It uses plain HTML, CSS, JavaSc
 - `index.html` - page content and structure
 - `styles.css` - responsive visual styling
 - `script.js` - background music controls, wishes, message popups, reveal effects, and confetti
-- `assets/birthday-background-elegant.png` - active generated hero background
-- `assets/birthday-background-twilight.png` - alternate generated twilight background
+- `assets/birthday-background-twilight.png` - active generated hero background
+- `assets/birthday-background-elegant.png` - alternate generated elegant background
 - `assets/birthday-hero.png` - alternate generated soft background image
 - `assets/Cutie Patootie.mp3` - background music used by the page
 - `assets/*.jpg` - personal photos used in the hero portrait and photo gallery
