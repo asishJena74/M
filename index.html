@@ -8,7 +8,6 @@
       name="description"
       content="A gentle birthday surprise for Madhushree, someone very special."
     />
-    <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta name="referrer" content="no-referrer" />
     <meta property="og:title" content="Happy Birthday, Madhushree" />
     <meta
@@ -20,6 +19,7 @@
   </head>
   <body>
     <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+    <audio id="bgMusic" src="assets/Cutie%20Patootie.mp3" preload="auto" autoplay loop playsinline></audio>
 
     <header class="hero">
       <div class="hero__media" role="img" aria-label="Flowers, candles, and a blank letter in warm birthday light"></div>
@@ -32,7 +32,10 @@
       <div class="hero__layout">
         <div class="hero__content">
           <p class="eyebrow">A little birthday page for someone very special</p>
-          <h1>Happy Birthday, Madhushree</h1>
+          <h1>
+            <span>Happy Birthday,</span>
+            <strong>Madhushree</strong>
+          </h1>
           <p class="tagline">
             I made this because some people deserve something more thoughtful than a simple message.
             You are one of those people.
@@ -252,6 +255,7 @@
     </dialog>
 
     <dialog id="birthdayWishDialog" class="wish-dialog">
+      <canvas id="wishConfettiCanvas" aria-hidden="true"></canvas>
       <button class="dialog-close birthday-wish-close" type="button" aria-label="Close birthday wish">x</button>
       <div class="wish-ritual">
         <div class="candle" aria-hidden="true">
@@ -293,6 +297,17 @@
         </button>
       </div>
     </dialog>
+
+    <button
+      class="music-bubble"
+      id="musicToggle"
+      type="button"
+      aria-label="Mute music"
+      aria-pressed="true"
+      title="Mute music"
+    >
+      <span aria-hidden="true">&#9834;</span>
+    </button>
 
     <script src="script.js"></script>
   </body>

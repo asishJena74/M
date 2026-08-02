@@ -1,5 +1,7 @@
 const surpriseBtn = document.getElementById("surpriseBtn");
 const confettiBtn = document.getElementById("confettiBtn");
+const bgMusic = document.getElementById("bgMusic");
+const musicToggle = document.getElementById("musicToggle");
 const finalSurprise = document.getElementById("finalSurprise");
 const wishText = document.getElementById("wishText");
 const wishButtons = document.querySelectorAll(".wish");
@@ -18,21 +20,122 @@ const finalAfterWish = document.getElementById("finalAfterWish");
 const finalWishOptions = document.querySelectorAll("[data-final-wish]");
 const canvas = document.getElementById("confettiCanvas");
 const context = canvas.getContext("2d");
+const wishCanvas = document.getElementById("wishConfettiCanvas");
+const wishContext = wishCanvas.getContext("2d");
 
 let confetti = [];
 let confettiFrame;
+let wishConfetti = [];
+let wishConfettiFrame;
+let musicFadeTimer;
+let isMusicPlaying = false;
+let isMusicMuted = false;
 
 const colors = ["#c65d49", "#bd8c43", "#687c62", "#f2b39e", "#fff4e8"];
+const musicMaxVolume = 0.58;
+
+bgMusic.volume = musicMaxVolume;
+
+function fadeMusic(targetVolume, onDone) {
+  window.clearInterval(musicFadeTimer);
+
+  musicFadeTimer = window.setInterval(() => {
+    const difference = targetVolume - bgMusic.volume;
+    const nextVolume = bgMusic.volume + Math.sign(difference) * 0.04;
+
+    if (Math.abs(difference) <= 0.045) {
+      bgMusic.volume = targetVolume;
+      window.clearInterval(musicFadeTimer);
+
+      if (onDone) {
+        onDone();
+      }
+
+      return;
+    }
+
+    bgMusic.volume = Math.max(0, Math.min(musicMaxVolume, nextVolume));
+  }, 80);
+}
+
+function syncMusicBubble() {
+  const muted = bgMusic.muted || bgMusic.paused || bgMusic.volume === 0;
+
+  musicToggle.classList.toggle("is-muted", muted);
+  musicToggle.setAttribute("aria-pressed", String(!muted));
+  musicToggle.setAttribute("aria-label", muted ? "Unmute music" : "Mute music");
+  musicToggle.title = muted ? "Unmute music" : "Mute music";
+}
+
+async function startMusic({ fade = true } = {}) {
+  try {
+    await bgMusic.play();
+  } catch (error) {
+    isMusicPlaying = false;
+    isMusicMuted = true;
+    syncMusicBubble();
+    return false;
+  }
+
+  bgMusic.muted = false;
+  isMusicMuted = false;
+  isMusicPlaying = true;
+
+  if (fade) {
+    bgMusic.volume = Math.min(bgMusic.volume, 0.08);
+    fadeMusic(musicMaxVolume, syncMusicBubble);
+  } else {
+    bgMusic.volume = musicMaxVolume;
+  }
+
+  syncMusicBubble();
+  return true;
+}
+
+function stopMusic() {
+  isMusicMuted = true;
+  fadeMusic(0, () => {
+    bgMusic.muted = true;
+    isMusicPlaying = !bgMusic.paused;
+    syncMusicBubble();
+  });
+}
+
+async function attemptAutoplay() {
+  bgMusic.muted = false;
+  bgMusic.volume = musicMaxVolume;
+  const started = await startMusic({ fade: false });
+
+  if (!started) {
+    isMusicPlaying = false;
+    isMusicMuted = true;
+    bgMusic.muted = false;
+    bgMusic.volume = musicMaxVolume;
+    syncMusicBubble();
+  }
+}
+
+function startMusicOnFirstInteraction(event) {
+  if (event.target instanceof Element && event.target.closest("#musicToggle")) {
+    return;
+  }
+
+  if (!isMusicPlaying || isMusicMuted) {
+    startMusic();
+  }
+}
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
+  wishCanvas.width = window.innerWidth;
+  wishCanvas.height = window.innerHeight;
 }
 
-function createConfettiPiece() {
+function createConfettiPiece(targetCanvas) {
   return {
-    x: Math.random() * canvas.width,
-    y: -20 - Math.random() * canvas.height * 0.35,
+    x: Math.random() * targetCanvas.width,
+    y: -20 - Math.random() * targetCanvas.height * 0.35,
     size: 5 + Math.random() * 8,
     speed: 2 + Math.random() * 4,
     drift: -1.2 + Math.random() * 2.4,
@@ -42,37 +145,52 @@ function createConfettiPiece() {
   };
 }
 
-function drawConfetti() {
-  context.clearRect(0, 0, canvas.width, canvas.height);
+function drawConfettiLayer(targetCanvas, targetContext, pieces, frameSetter) {
+  targetContext.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
 
-  confetti.forEach((piece) => {
+  pieces.forEach((piece) => {
     piece.x += piece.drift;
     piece.y += piece.speed;
     piece.rotation += piece.rotationSpeed;
 
-    context.save();
-    context.translate(piece.x, piece.y);
-    context.rotate(piece.rotation);
-    context.fillStyle = piece.color;
-    context.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size * 0.62);
-    context.restore();
+    targetContext.save();
+    targetContext.translate(piece.x, piece.y);
+    targetContext.rotate(piece.rotation);
+    targetContext.fillStyle = piece.color;
+    targetContext.fillRect(-piece.size / 2, -piece.size / 2, piece.size, piece.size * 0.62);
+    targetContext.restore();
   });
 
-  confetti = confetti.filter((piece) => piece.y < canvas.height + 30);
+  const remainingPieces = pieces.filter((piece) => piece.y < targetCanvas.height + 30);
 
-  if (confetti.length) {
-    confettiFrame = requestAnimationFrame(drawConfetti);
+  if (remainingPieces.length) {
+    frameSetter(remainingPieces, requestAnimationFrame(() => {
+      drawConfettiLayer(targetCanvas, targetContext, remainingPieces, frameSetter);
+    }));
   } else {
-    cancelAnimationFrame(confettiFrame);
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    frameSetter([], undefined);
+    targetContext.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
   }
 }
 
 function launchConfetti() {
   resizeCanvas();
-  confetti = Array.from({ length: 150 }, createConfettiPiece);
+  confetti = Array.from({ length: 150 }, () => createConfettiPiece(canvas));
   cancelAnimationFrame(confettiFrame);
-  drawConfetti();
+  drawConfettiLayer(canvas, context, confetti, (nextPieces, nextFrame) => {
+    confetti = nextPieces;
+    confettiFrame = nextFrame;
+  });
+}
+
+function launchWishConfetti() {
+  resizeCanvas();
+  wishConfetti = Array.from({ length: 150 }, () => createConfettiPiece(wishCanvas));
+  cancelAnimationFrame(wishConfettiFrame);
+  drawConfettiLayer(wishCanvas, wishContext, wishConfetti, (nextPieces, nextFrame) => {
+    wishConfetti = nextPieces;
+    wishConfettiFrame = nextFrame;
+  });
 }
 
 resizeCanvas();
@@ -81,6 +199,20 @@ window.addEventListener("resize", resizeCanvas);
 surpriseBtn.addEventListener("click", () => {
   finalSurprise.scrollIntoView({ behavior: "smooth", block: "center" });
   launchConfetti();
+});
+
+musicToggle.addEventListener("click", () => {
+  if (!bgMusic.muted && bgMusic.volume > 0) {
+    stopMusic();
+  } else {
+    startMusic();
+  }
+});
+
+attemptAutoplay();
+document.addEventListener("DOMContentLoaded", attemptAutoplay, { once: true });
+["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
+  window.addEventListener(eventName, startMusicOnFirstInteraction, { once: true, passive: true });
 });
 
 confettiBtn.addEventListener("click", () => {
@@ -114,7 +246,7 @@ sendWishBtn.addEventListener("click", () => {
   birthdayWishResult.textContent = "Wish sent. May it find her at exactly the right moment.";
   finalAfterWish.textContent = "A little wish has been sent for Madhushree.";
   confettiBtn.textContent = "Send another birthday wish";
-  launchConfetti();
+  launchWishConfetti();
 });
 
 wishButtons.forEach((button) => {
@@ -180,6 +312,12 @@ birthdayWishDialog.addEventListener("click", (event) => {
   if (event.target === birthdayWishDialog) {
     birthdayWishDialog.close();
   }
+});
+
+birthdayWishDialog.addEventListener("close", () => {
+  cancelAnimationFrame(wishConfettiFrame);
+  wishConfetti = [];
+  wishContext.clearRect(0, 0, wishCanvas.width, wishCanvas.height);
 });
 
 const observer = new IntersectionObserver(
