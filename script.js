@@ -30,6 +30,8 @@ let wishConfettiFrame;
 let musicFadeTimer;
 let isMusicPlaying = false;
 let isMusicMuted = false;
+let musicRequestId = 0;
+let userMusicChoiceMade = false;
 
 const colors = ["#c65d49", "#bd8c43", "#687c62", "#f2b39e", "#fff4e8"];
 const musicMaxVolume = 0.58;
@@ -68,12 +70,22 @@ function syncMusicBubble() {
 }
 
 async function startMusic({ fade = true } = {}) {
+  const requestId = ++musicRequestId;
+
   try {
     await bgMusic.play();
   } catch (error) {
+    if (requestId !== musicRequestId) {
+      return false;
+    }
+
     isMusicPlaying = false;
     isMusicMuted = true;
     syncMusicBubble();
+    return false;
+  }
+
+  if (requestId !== musicRequestId) {
     return false;
   }
 
@@ -93,6 +105,7 @@ async function startMusic({ fade = true } = {}) {
 }
 
 function stopMusic() {
+  musicRequestId += 1;
   isMusicMuted = true;
   fadeMusic(0, () => {
     bgMusic.muted = true;
@@ -102,11 +115,16 @@ function stopMusic() {
 }
 
 async function attemptAutoplay() {
+  if (userMusicChoiceMade) {
+    return;
+  }
+
+  const requestId = musicRequestId + 1;
   bgMusic.muted = false;
   bgMusic.volume = musicMaxVolume;
   const started = await startMusic({ fade: false });
 
-  if (!started) {
+  if (!started && requestId === musicRequestId) {
     isMusicPlaying = false;
     isMusicMuted = true;
     bgMusic.muted = false;
@@ -116,6 +134,10 @@ async function attemptAutoplay() {
 }
 
 function startMusicOnFirstInteraction(event) {
+  if (userMusicChoiceMade) {
+    return;
+  }
+
   if (event.target instanceof Element && event.target.closest("#musicToggle")) {
     return;
   }
@@ -202,7 +224,9 @@ surpriseBtn.addEventListener("click", () => {
 });
 
 musicToggle.addEventListener("click", () => {
-  if (!bgMusic.muted && bgMusic.volume > 0) {
+  userMusicChoiceMade = true;
+
+  if (!bgMusic.paused && !bgMusic.muted && bgMusic.volume > 0) {
     stopMusic();
   } else {
     startMusic();
@@ -211,8 +235,8 @@ musicToggle.addEventListener("click", () => {
 
 attemptAutoplay();
 document.addEventListener("DOMContentLoaded", attemptAutoplay, { once: true });
-["pointerdown", "keydown", "touchstart"].forEach((eventName) => {
-  window.addEventListener(eventName, startMusicOnFirstInteraction, { once: true, passive: true });
+["pointerup", "click", "touchend", "keydown"].forEach((eventName) => {
+  document.addEventListener(eventName, startMusicOnFirstInteraction, { once: true, passive: true });
 });
 
 confettiBtn.addEventListener("click", () => {
