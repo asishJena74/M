@@ -242,6 +242,7 @@
         <button class="button button--primary" id="confettiBtn" type="button">
           Make a birthday wish
         </button>
+        <p class="final__after" id="finalAfterWish" aria-live="polite"></p>
       </section>
     </main>
 
@@ -254,6 +255,49 @@
       <button class="dialog-close photo-close" type="button" aria-label="Close photo">x</button>
       <img id="photoDialogImage" alt="" />
       <p id="photoDialogCaption"></p>
+    </dialog>
+
+    <dialog id="birthdayWishDialog" class="wish-dialog">
+      <button class="dialog-close birthday-wish-close" type="button" aria-label="Close birthday wish">x</button>
+      <div class="wish-ritual">
+        <div class="candle" aria-hidden="true">
+          <span class="flame"></span>
+          <span class="glow"></span>
+          <span class="wick"></span>
+          <span class="candle-body"></span>
+        </div>
+        <p class="eyebrow">A tiny birthday ritual</p>
+        <h2>Choose one wish for Madhushree</h2>
+        <p id="birthdayWishPrompt">
+          Pick the wish you want this little candle to carry for her.
+        </p>
+        <div class="wish-options" aria-label="Birthday wish choices">
+          <button
+            type="button"
+            data-final-wish="May this year bring Madhushree the kind of peace that makes everything feel lighter."
+          >
+            Peace
+          </button>
+          <button
+            type="button"
+            data-final-wish="May Madhushree's dreams come closer this year, softly and beautifully, one step at a time."
+          >
+            Dreams
+          </button>
+          <button
+            type="button"
+            data-final-wish="May Madhushree keep finding reasons to smile exactly the way only she can."
+          >
+            Smile
+          </button>
+        </div>
+        <p class="wish-result" id="birthdayWishResult" aria-live="polite">
+          The candle is waiting.
+        </p>
+        <button class="button button--primary" id="sendWishBtn" type="button" disabled>
+          Send this wish
+        </button>
+      </div>
     </dialog>
 
     <script src="script.js"></script>

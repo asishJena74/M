@@ -5,11 +5,17 @@ const wishText = document.getElementById("wishText");
 const wishButtons = document.querySelectorAll(".wish");
 const messageDialog = document.getElementById("messageDialog");
 const dialogText = document.getElementById("dialogText");
-const dialogClose = document.querySelector(".dialog-close");
+const dialogClose = messageDialog.querySelector(".dialog-close");
 const photoDialog = document.getElementById("photoDialog");
 const photoDialogImage = document.getElementById("photoDialogImage");
 const photoDialogCaption = document.getElementById("photoDialogCaption");
-const photoClose = document.querySelector(".photo-close");
+const photoClose = photoDialog.querySelector(".photo-close");
+const birthdayWishDialog = document.getElementById("birthdayWishDialog");
+const birthdayWishClose = birthdayWishDialog.querySelector(".birthday-wish-close");
+const birthdayWishResult = document.getElementById("birthdayWishResult");
+const sendWishBtn = document.getElementById("sendWishBtn");
+const finalAfterWish = document.getElementById("finalAfterWish");
+const finalWishOptions = document.querySelectorAll("[data-final-wish]");
 const canvas = document.getElementById("confettiCanvas");
 const context = canvas.getContext("2d");
 
@@ -77,7 +83,39 @@ surpriseBtn.addEventListener("click", () => {
   launchConfetti();
 });
 
-confettiBtn.addEventListener("click", launchConfetti);
+confettiBtn.addEventListener("click", () => {
+  birthdayWishDialog.classList.remove("sent");
+
+  if (typeof birthdayWishDialog.showModal === "function") {
+    birthdayWishDialog.showModal();
+  } else {
+    launchConfetti();
+  }
+});
+
+finalWishOptions.forEach((button) => {
+  button.addEventListener("click", () => {
+    finalWishOptions.forEach((item) => item.classList.remove("active"));
+    button.classList.add("active");
+    birthdayWishDialog.classList.remove("sent");
+    birthdayWishResult.textContent = button.dataset.finalWish;
+    sendWishBtn.disabled = false;
+  });
+});
+
+sendWishBtn.addEventListener("click", () => {
+  const activeWish = document.querySelector("[data-final-wish].active");
+
+  if (!activeWish) {
+    return;
+  }
+
+  birthdayWishDialog.classList.add("sent");
+  birthdayWishResult.textContent = "Wish sent. May it find her at exactly the right moment.";
+  finalAfterWish.textContent = "A little wish has been sent for Madhushree.";
+  confettiBtn.textContent = "Send another birthday wish";
+  launchConfetti();
+});
 
 wishButtons.forEach((button) => {
   button.addEventListener("click", () => {
@@ -131,6 +169,16 @@ photoClose.addEventListener("click", () => {
 photoDialog.addEventListener("click", (event) => {
   if (event.target === photoDialog) {
     photoDialog.close();
+  }
+});
+
+birthdayWishClose.addEventListener("click", () => {
+  birthdayWishDialog.close();
+});
+
+birthdayWishDialog.addEventListener("click", (event) => {
+  if (event.target === birthdayWishDialog) {
+    birthdayWishDialog.close();
   }
 });
 
