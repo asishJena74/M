@@ -7,7 +7,8 @@ A static birthday website made for GitHub Pages. It uses plain HTML, CSS, and Ja
 - `index.html` - page content and structure
 - `styles.css` - responsive visual styling
 - `script.js` - wishes, message popups, reveal effects, and confetti
-- `assets/birthday-background-twilight.png` - active generated hero background
+- `assets/birthday-background-elegant.png` - active generated hero background
+- `assets/birthday-background-twilight.png` - alternate generated twilight background
 - `assets/birthday-hero.png` - alternate generated soft background image
 - `assets/*.jpg` - personal photos used in the hero portrait and photo gallery
 
