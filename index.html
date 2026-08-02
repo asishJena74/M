@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy Birthday, Madhushree</title>
+    <meta
+      name="description"
+      content="A gentle birthday surprise for Madhushree, someone very special."
+    />
+    <meta property="og:title" content="Happy Birthday, Madhushree" />
+    <meta
+      property="og:description"
+      content="A small birthday page for someone who makes the world feel brighter."
+    />
+    <meta property="og:image" content="assets/birthday-background-twilight.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+    <header class="hero">
+      <div class="hero__media" role="img" aria-label="Flowers, candles, and a blank letter in warm birthday light"></div>
+      <nav class="topbar" aria-label="Birthday page sections">
+        <a href="#gallery">Photos</a>
+        <a href="#admire">Admire</a>
+        <a href="#letter">Letter</a>
+        <a href="#wishes">Wishes</a>
+      </nav>
+      <div class="hero__layout">
+        <div class="hero__content">
+          <p class="eyebrow">A little birthday page for someone very special</p>
+          <h1>Happy Birthday, Madhushree</h1>
+          <p class="tagline">
+            I made this because some people deserve something more thoughtful than a simple message.
+            You are one of those people.
+          </p>
+          <div class="hero__actions">
+            <a class="button button--primary" href="#letter">Read my note</a>
+            <button class="button button--soft" id="surpriseBtn" type="button">
+              One tiny surprise
+            </button>
+          </div>
+        </div>
+        <figure class="hero__portrait">
+          <img src="assets/IMG-20260617-WA0015.jpg" alt="Madhushree smiling outdoors" />
+          <figcaption>Someone who makes simple moments look beautiful.</figcaption>
+        </figure>
+      </div>
+        </div>
+      </div>
+      <div class="scroll-cue" aria-hidden="true">
+        <span></span>
+      </div>
+    </header>
+
+    <main>
+      <section class="intro reveal">
+        <p>
+          I do not want this to feel too heavy. I just wanted to make something
+          honest, beautiful, and a little memorable for your day.
+        </p>
+      </section>
+
+      <section class="section photo-section" id="gallery">
+        <div class="section__heading reveal">
+          <p class="eyebrow">Madhushree in frames</p>
+          <h2>A few photos that already feel like little highlights</h2>
+        </div>
+
+        <div class="photo-story">
+          <button
+            class="photo-tile photo-tile--feature reveal"
+            type="button"
+            data-full="assets/IMG-20240128-WA0005.jpg"
+            data-caption="That smile has its own quiet kind of magic."
+          >
+            <img src="assets/IMG-20240128-WA0005.jpg" alt="Madhushree smiling in a green outfit" />
+            <span>That smile</span>
+          </button>
+          <button
+            class="photo-tile reveal"
+            type="button"
+            data-full="assets/IMG-20240603-WA0019.jpg"
+            data-caption="Elegant, calm, and completely herself."
+          >
+            <img src="assets/IMG-20240603-WA0019.jpg" alt="Madhushree in a blue outfit" />
+            <span>Blue evening</span>
+          </button>
+          <button
+            class="photo-tile reveal"
+            type="button"
+            data-full="assets/IMG-20240603-WA0020.jpg"
+            data-caption="The kind of photo that makes a normal day look cinematic."
+          >
+            <img src="assets/IMG-20240603-WA0020.jpg" alt="Madhushree sitting outside at night" />
+            <span>Soft night lights</span>
+          </button>
+          <button
+            class="photo-tile reveal"
+            type="button"
+            data-full="assets/IMG-20260101-WA0023.jpg"
+            data-caption="Graceful without even trying too hard."
+          >
+            <img src="assets/IMG-20260101-WA0023.jpg" alt="Madhushree taking a mirror selfie" />
+            <span>Grace</span>
+          </button>
+          <button
+            class="photo-tile reveal"
+            type="button"
+            data-full="assets/IMG-20260120-WA0003.jpg"
+            data-caption="A bright day, a strong look, and a very beautiful person."
+          >
+            <img src="assets/IMG-20260120-WA0003.jpg" alt="Madhushree outdoors on a sunny day" />
+            <span>Bright day</span>
+          </button>
+          <button
+            class="photo-tile reveal"
+            type="button"
+            data-full="assets/IMG-20260617-WA0015.jpg"
+            data-caption="This one deserved to be on the first screen too."
+          >
+            <img src="assets/IMG-20260617-WA0015.jpg" alt="Madhushree smiling in a green patterned outfit" />
+            <span>Favorite frame</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="section" id="admire">
+        <div class="section__heading reveal">
+          <p class="eyebrow">What I admire</p>
+          <h2>Small things about you that stayed with me</h2>
+        </div>
+
+        <div class="admire-grid">
+          <article class="admire-card reveal">
+            <span>01</span>
+            <h3>Your kindness</h3>
+            <p>You have a way of making people feel seen without making a show of it.</p>
+          </article>
+          <article class="admire-card reveal">
+            <span>02</span>
+            <h3>Your smile</h3>
+            <p>It has this quiet magic. The kind that can change the mood of a whole day.</p>
+          </article>
+          <article class="admire-card reveal">
+            <span>03</span>
+            <h3>Your strength</h3>
+            <p>There is something graceful about the way you carry yourself through life.</p>
+          </article>
+          <article class="admire-card reveal">
+            <span>04</span>
+            <h3>Your beauty</h3>
+            <p>Not just the obvious kind, though that is very real too. The inside kind also.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="letter-section" id="letter">
+        <div class="letter reveal">
+          <p class="eyebrow">A small letter</p>
+          <h2>Dear Madhushree,</h2>
+          <p>
+            I wanted to wish you the happiest birthday in a way that feels a
+            little more special. You are a genuinely beautiful person, not only
+            because of how you look, but because of the warmth, kindness, and
+            light you carry.
+          </p>
+          <p>
+            I do not know exactly what the future has planned, and I do not want
+            to rush the words that should grow naturally. But I do know this:
+            knowing you feels special to me.
+          </p>
+          <p>
+            I hope this year brings you peace, success, laughter, soft days,
+            brave dreams, and many reasons to smile the way only you do.
+          </p>
+          <p class="letter__signoff">Happy Birthday, Madhushree.</p>
+        </div>
+      </section>
+
+      <section class="section" id="wishes">
+        <div class="section__heading reveal">
+          <p class="eyebrow">Little wishes</p>
+          <h2>For your new year of life</h2>
+        </div>
+
+        <div class="wish-wall reveal" aria-live="polite">
+          <button class="wish active" type="button" data-wish="May you always feel valued by the people lucky enough to know you.">
+            Peace
+          </button>
+          <button class="wish" type="button" data-wish="May your dreams come closer, step by step, in ways that surprise you.">
+            Dreams
+          </button>
+          <button class="wish" type="button" data-wish="May your smile return to you often, even on ordinary days.">
+            Smile
+          </button>
+          <button class="wish" type="button" data-wish="May life be gentle with your heart and generous with your happiness.">
+            Happiness
+          </button>
+          <p id="wishText">
+            May you always feel valued by the people lucky enough to know you.
+          </p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section__heading reveal">
+          <p class="eyebrow">Open when</p>
+          <h2>Tiny messages for tiny moments</h2>
+        </div>
+
+        <div class="message-grid">
+          <button class="message-card reveal" type="button" data-message="You are doing better than you think. Be kind to yourself today.">
+            <span>Open when</span>
+            <strong>You need calm</strong>
+          </button>
+          <button class="message-card reveal" type="button" data-message="Someone here is quietly cheering for you and hoping your day gets lighter.">
+            <span>Open when</span>
+            <strong>You feel low</strong>
+          </button>
+          <button class="message-card reveal" type="button" data-message="Just a reminder: your smile is unfairly powerful. Use responsibly.">
+            <span>Open when</span>
+            <strong>You need a smile</strong>
+          </button>
+        </div>
+      </section>
+
+      <section class="final reveal" id="finalSurprise">
+        <p class="eyebrow">One last thing</p>
+        <h2>You deserve beautiful things this year.</h2>
+        <p>
+          Happy Birthday, Madhushree. I hope this little page made you smile,
+          even just a little.
+        </p>
+        <button class="button button--primary" id="confettiBtn" type="button">
+          Make a birthday wish
+        </button>
+      </section>
+    </main>
+
+    <dialog id="messageDialog">
+      <button class="dialog-close" type="button" aria-label="Close message">x</button>
+      <p id="dialogText"></p>
+    </dialog>
+
+    <dialog id="photoDialog" class="photo-dialog">
+      <button class="dialog-close photo-close" type="button" aria-label="Close photo">x</button>
+      <img id="photoDialogImage" alt="" />
+      <p id="photoDialogCaption"></p>
+    </dialog>
+
+    <script src="script.js"></script>
+  </body>
+</html>
